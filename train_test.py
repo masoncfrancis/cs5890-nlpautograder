@@ -102,17 +102,15 @@ def test(bigrams_right, bigrams_wrong):
             bigram = words[i] + ' ' + words[i + 1]
             if bigram in bigrams_right:
                 if bigrams_right[bigram] == 0:
-                    rightProb *= .5
+                    rightProb *= .05
                 else:
                     rightProb *= bigrams_right[bigram]
             if bigram in bigrams_wrong:
                 if bigrams_wrong[bigram] == 0:
-                    wrongProb *= .5
+                    wrongProb *= .05
                 else:
                     wrongProb *= bigrams_wrong[bigram]
-            
-            print(f"rightProb: {rightProb}, wrongProb: {wrongProb}, score: {score}, submission: {submission}")
-            
+                        
             # check if the grading was correct
             if rightProb > wrongProb:
                 if score == '1':
