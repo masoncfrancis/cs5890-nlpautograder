@@ -87,8 +87,6 @@ def test(bigrams_right, bigrams_wrong):
             submissions[row[1]] = row[2]
     del submissions['Student.answer']
 
-    # TODO Use your bigrams to grade each student input and check if you graded
-    # it correctly
 
     # Calculate probability that each answer is right or wrong
     # This section was assisted by GitHub Copilot, but just like before, I had to do the work to understand how to implement it correctly
@@ -113,14 +111,16 @@ def test(bigrams_right, bigrams_wrong):
                 else:
                     wrongProb *= bigrams_wrong[bigram]
             
+            print(f"rightProb: {rightProb}, wrongProb: {wrongProb}, score: {score}, submission: {submission}")
+            
             # check if the grading was correct
             if rightProb > wrongProb:
-                if score == 1:
+                if score == '1':
                     correctly_graded += 1
                 else:
                     incorrectly_graded += 1
             elif wrongProb > rightProb:
-                if score == 0:
+                if score == '0':
                     correctly_graded += 1
                 else:
                     incorrectly_graded += 1
