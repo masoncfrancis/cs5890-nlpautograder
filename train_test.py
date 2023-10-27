@@ -90,8 +90,44 @@ def test(bigrams_right, bigrams_wrong):
     # TODO Use your bigrams to grade each student input and check if you graded
     # it correctly
 
+    # Calculate probability that each answer is right or wrong
+    # This section was assisted by GitHub Copilot, but just like before, I had to do the work to understand how to implement it correctly
+    # GitHub Copilot helped me with the for loop and the if statements to retrieve the probability of each answer being right or wrong
+    # GitHub Copilot didn't seem to be want to help with smoothing. I did that all myself. Also, I evaluated the correctness of each grading myself. 
+
     for submission, score in submissions.items():
-        pass
+        submission = '<s> ' + submission + ' </s>'
+        rightProb = 1
+        wrongProb = 1
+        words = submission.split()
+        for i in range(len(words) - 1):
+            bigram = words[i] + ' ' + words[i + 1]
+            if bigram in bigrams_right:
+                if bigrams_right[bigram] == 0:
+                    rightProb *= .5
+                else:
+                    rightProb *= bigrams_right[bigram]
+            if bigram in bigrams_wrong:
+                if bigrams_wrong[bigram] == 0:
+                    wrongProb *= .5
+                else:
+                    wrongProb *= bigrams_wrong[bigram]
+            
+            # check if the grading was correct
+            if rightProb > wrongProb:
+                if score == 1:
+                    correctly_graded += 1
+                else:
+                    incorrectly_graded += 1
+            elif wrongProb > rightProb:
+                if score == 0:
+                    correctly_graded += 1
+                else:
+                    incorrectly_graded += 1
+            
+
+
+
 
 
 
